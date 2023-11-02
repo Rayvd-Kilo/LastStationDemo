@@ -2208,6 +2208,23 @@ MonoBehaviour:
   flipBy180DegreeRotation: 0
   skeletonRenderer: {fileID: 1110646862555979483}
   skeletonGraphic: {fileID: 0}
+--- !u!1 &6109008820194277844 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7353673983573922678, guid: b01a32cf385f2dc418831e368534b78e, type: 3}
+  m_PrefabInstance: {fileID: 3660002223110023842}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-7486808636810271731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109008820194277844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9694081981494bbc89d457ebc61262b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6483787874394636706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7724229823309802240, guid: b01a32cf385f2dc418831e368534b78e, type: 3}
