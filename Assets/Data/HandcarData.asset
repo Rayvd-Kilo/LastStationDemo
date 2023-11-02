@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15674abf6f1842c9a1fbc7c26efbd1e2, type: 3}
+  m_Name: HandcarData
+  m_EditorClassIdentifier: 
+  <HandcarView>k__BackingField: {fileID: 7867879112623859170, guid: 7abd8ef91bf8d8b4581249cff200b03d, type: 3}
+  <Health>k__BackingField: 1500
+  <CarInitialPosition>k__BackingField: {x: -8, y: -0.95}
+  <CellPositions>k__BackingField:
+  - {x: 0.8, y: -2.6}
+  - {x: -0.76, y: -2.6}
+  - {x: -2.42, y: -2.6}
+  - {x: 2.07, y: -0.46}
+  - {x: 2.07, y: -0.46}
+  - {x: 0.16, y: -0.46}
+  - {x: -1.87, y: -0.46}
+  - {x: 1.63, y: 1.71}
+  - {x: -0.24, y: 1.71}
+  - {x: -2.15, y: 1.71}
