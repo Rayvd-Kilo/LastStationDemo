@@ -29,7 +29,7 @@ namespace GourmetsRealm.LastStationDemo.Controllers
 
         private async UniTask StartGameplayAsync(CancellationToken token)
         {
-            await _handcarView.DoStartAnimationAsync(-7.8f, token);
+            await _handcarView.DoStartAnimationAsync(-6.5f, token);
 
             var iterationScope = _parentScope.CreateChild(builder =>
             {

@@ -1,5 +1,6 @@
 using GourmetsRealm.LastStationDemo.Core;
 using GourmetsRealm.LastStationDemo.Data;
+using GourmetsRealm.LastStationDemo.Models;
 using GourmetsRealm.LastStationDemo.Views;
 using UnityEngine;
 using VContainer;
@@ -16,6 +17,9 @@ namespace GourmetsRealm.LastStationDemo.EntryPoint
         protected override void Configure(IContainerBuilder builder)
         {
             base.Configure(builder);
+
+            builder.RegisterInstance(
+                new ViewModelRepository<HeroUnitModel, HeroView>(_gameplayData.HeroesUnitData));
 
             builder.RegisterInstance(_gameplayData);
 

@@ -14,5 +14,7 @@ namespace GourmetsRealm.LastStationDemo.Data
         [field:SerializeField] public float TimeBeforeAttack { get; private set; }
         
         [field:SerializeField] public float HitDistance { get; private set; }
+
+        public abstract IUnitModel CreateModel();
     }
 }

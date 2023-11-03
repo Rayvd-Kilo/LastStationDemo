@@ -47,18 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _appearAnimationData:
-    _animationTime: 2
-    _animationEase: 13
+    _animationTime: 3.5
+    _animationEase: 27
   _disappearAnimationData:
     _animationTime: 4
-    _animationEase: 22
+    _animationEase: 35
   _cellsParent: {fileID: 4842141798703674455}
-  _startAnimationData:
-    _animationTime: 2
-    _animationEase: 13
-  _endgameAnimationData:
-    _animationTime: 4
-    _animationEase: 22
 --- !u!1 &4896436958850200384
 GameObject:
   m_ObjectHideFlags: 0
