@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Cysharp.Threading.Tasks;
 using GourmetsRealm.LastStationDemo.Interfaces;
 using GourmetsRealm.LastStationDemo.Objects;
 using UnityEngine;
@@ -7,32 +9,42 @@ namespace GourmetsRealm.LastStationDemo.Models
 {
     public class HandcarModel : IDamageable, IResettable
     {
+        public event Action<Vector2, IUnitModel> HeroPlaced;
+
+        public event Action<Vector2, IUnitModel> HeroRemoved; 
+        
         public event Action Destroyed;
 
-        public int Health => _health;
-        
-        private int _health;
+        public IAsyncReactiveProperty<int> Health { get; private set; }
 
         private int _defaultHealth;
 
         private readonly UnitCell<IUnitModel>[] _heroCells;
 
-        public HandcarModel(int health, Vector2[] cellPositions)
+        public HandcarModel(int health, UnitCell<IUnitModel>[] heroCells)
         {
-            _health = health;
-            _heroCells = new UnitCell<IUnitModel>[cellPositions.Length];
-
-            for (var i = 0; i < cellPositions.Length; i++)
+            Health = new AsyncReactiveProperty<int>(health);
+            _heroCells = heroCells;
+            
+            foreach (var heroCell in _heroCells)
             {
-                _heroCells[i] = new UnitCell<IUnitModel>(cellPositions[i]);
+                heroCell.ModelPlaced += OnHeroSet;
+                heroCell.ModelRemoved += OnHeroRemoved;
             }
+        }
+
+        public void SetHeroToCell(IUnitModel heroModel)
+        {
+            if (_heroCells.All(x => x.IsPlaced)) return;
+            
+            _heroCells.First(x => !x.IsPlaced).PlaceModel(heroModel);
         }
 
         public void TakeDamage(int damageAmount)
         {
-            _health -= damageAmount;
+            Health.Value -= damageAmount;
 
-            if (_health <= 0)
+            if (Health.Value <= 0)
             {
                 Destroyed?.Invoke();
             }
@@ -40,7 +52,17 @@ namespace GourmetsRealm.LastStationDemo.Models
 
         public void ResetToDefault()
         {
-            _health = _defaultHealth;
+            Health.Value = _defaultHealth;
+        }
+        
+        private void OnHeroSet(Vector2 cellPosition, IUnitModel heroModel)
+        {
+            HeroPlaced?.Invoke(cellPosition, heroModel);
+        }
+        
+        private void OnHeroRemoved(Vector2 cellPosition, IUnitModel heroModel)
+        {
+            HeroRemoved?.Invoke(cellPosition, heroModel);
         }
     }
 }

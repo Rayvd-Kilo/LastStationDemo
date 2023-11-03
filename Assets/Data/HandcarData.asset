@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <HandcarView>k__BackingField: {fileID: 7867879112623859170, guid: 7abd8ef91bf8d8b4581249cff200b03d, type: 3}
   <Health>k__BackingField: 1500
-  <CarInitialPosition>k__BackingField: {x: -8, y: -0.95}
+  <CarInitialPosition>k__BackingField: {x: -19, y: -0.95}
   <CellPositions>k__BackingField:
   - {x: 0.8, y: -2.6}
   - {x: -0.76, y: -2.6}

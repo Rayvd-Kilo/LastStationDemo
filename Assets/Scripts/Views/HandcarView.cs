@@ -1,42 +1,43 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using GourmetsRealm.LastStationDemo.Structs;
-using GourmetsRealm.LastStationDemo.Utils;
+using GourmetsRealm.LastStationDemo.Interfaces;
 using UnityEngine;
 
 namespace GourmetsRealm.LastStationDemo.Views
 {
-    public class HandcarView : MonoBehaviour
+    public class HandcarView : BaseAnimatedView, IResettable
     {
-        [SerializeField] private Transform _cellsParent;
+        public Transform CellsParent => _cellsParent;
         
-        [Header("Animation Data")]
-
-        [SerializeField] private TweenAnimationData _startAnimationData;
-
-        [SerializeField] private TweenAnimationData _endgameAnimationData;
+        [SerializeField] private Transform _cellsParent;
 
         private Tween _activeTween;
-        
+
+        private Vector2 _initialPosition;
+
+        private CancellationTokenSource _cancellationTokenSource;
+
+        private void Start()
+        {
+            _initialPosition = transform.position;
+        }
+
         public async UniTask DoStartAnimationAsync(float horizontalEndPoint, CancellationToken token)
         {
-            await DoAnimationAsync(horizontalEndPoint, _startAnimationData).WithCancellation(token);
+            await DoAppearAnimationAsync(
+                () => transform.DOMoveX(horizontalEndPoint, _appearAnimationData.AnimationTime), token);
         }
 
         public async UniTask DoEndAnimationAsync(float horizontalEndPoint, CancellationToken token)
         {
-            await DoAnimationAsync(horizontalEndPoint, _endgameAnimationData).WithCancellation(token);
+            await DoDisappearAnimationAsync(
+                () => transform.DOMoveX(horizontalEndPoint, _disappearAnimationData.AnimationTime), token);
         }
-
-        private async UniTask DoAnimationAsync(float horizontalEndPoint, TweenAnimationData tweenAnimationData)
+        
+        public void ResetToDefault()
         {
-            _activeTween.KillActiveTween();
-
-            _activeTween = transform.DOMoveX(horizontalEndPoint, tweenAnimationData.AnimationTime)
-                .SetEase(tweenAnimationData.AnimationEase);
-
-            await _activeTween.AsyncWaitForCompletion();
+            transform.position = _initialPosition;
         }
     }
 }

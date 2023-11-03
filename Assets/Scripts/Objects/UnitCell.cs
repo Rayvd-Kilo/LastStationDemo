@@ -10,6 +10,8 @@ namespace GourmetsRealm.LastStationDemo.Objects
         public event Action<Vector2, T> ModelPlaced;
 
         public event Action<Vector2, T> ModelRemoved;
+
+        public bool IsPlaced => _isPlaced;
         
         private T _unitModel;
         private Vector2 _cellPosition;

@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 
 namespace GourmetsRealm.LastStationDemo.Interfaces
 {
@@ -6,7 +7,7 @@ namespace GourmetsRealm.LastStationDemo.Interfaces
     {
         event Action Destroyed;
         
-        int Health { get; }
+        IAsyncReactiveProperty<int> Health { get; }
 
         void TakeDamage(int damageAmount);
     }

@@ -46,6 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416fa656f9d04baaa5fcc6ded18a0a94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _appearAnimationData:
+    _animationTime: 2
+    _animationEase: 13
+  _disappearAnimationData:
+    _animationTime: 4
+    _animationEase: 22
   _cellsParent: {fileID: 4842141798703674455}
   _startAnimationData:
     _animationTime: 2
