@@ -28,7 +28,7 @@ namespace GourmetsRealm.LastStationDemo.Objects
             
             _unitModel = unitModel;
 
-            _isPlaced = false;
+            _isPlaced = true;
             
             ModelPlaced?.Invoke(_cellPosition, _unitModel);
         }
