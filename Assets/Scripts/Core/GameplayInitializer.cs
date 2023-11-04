@@ -1,4 +1,3 @@
-using System.Linq;
 using GourmetsRealm.LastStationDemo.Controllers;
 using GourmetsRealm.LastStationDemo.Data;
 using GourmetsRealm.LastStationDemo.Interfaces;
@@ -15,7 +14,7 @@ namespace GourmetsRealm.LastStationDemo.Core
     {
         private readonly GameplayData _gameplayData;
         private readonly LifetimeScope _parentScope;
-        private readonly ViewModelRepository<HeroUnitModel, HeroView> _heroPrototypesRepository;
+        private readonly ViewModelRepository<HeroUnitModel, HeroView> _heroesRepository;
 
         private HandcarModel _handcarModel;
         private HandcarView _handcarView;
@@ -23,20 +22,20 @@ namespace GourmetsRealm.LastStationDemo.Core
         public GameplayInitializer(
             GameplayData gameplayData,
             LifetimeScope parentScope,
-            ViewModelRepository<HeroUnitModel, HeroView> heroPrototypesRepository)
+            ViewModelRepository<HeroUnitModel, HeroView> heroesRepository)
         {
             _gameplayData = gameplayData;
             _parentScope = parentScope;
-            _heroPrototypesRepository = heroPrototypesRepository;
+            _heroesRepository = heroesRepository;
         }
 
         public void Initialize()
         {
             InitializeHandcar();
 
-            //InitializeHeroes();
+            InitializeHeroes();
         }
-
+        
         public void Start()
         {
             _parentScope.CreateChild(builder =>
@@ -64,14 +63,20 @@ namespace GourmetsRealm.LastStationDemo.Core
 
             _handcarView = Object.Instantiate(handcarData.HandcarView,
                 new Vector3(handcarData.CarInitialPosition.x, handcarData.CarInitialPosition.y), Quaternion.identity);
-            
+        }
+        
+        private void InitializeHeroes()
+        {
             _handcarModel.HeroPlaced += (vector2, model) =>
             {
-                Object.Instantiate(_heroPrototypesRepository.GetViewPrototype((HeroUnitModel)model),
-                    _handcarView.CellsParent).transform.localPosition = vector2;
+                var heroView = _heroesRepository.InitializeView((HeroUnitModel)model);
+                
+                heroView.transform.SetParent(_handcarView.CellsParent);
+
+                heroView.transform.localPosition = vector2;
             };
 
-            foreach (var heroUnitModel in _heroPrototypesRepository.ModelsArray)
+            foreach (var heroUnitModel in _heroesRepository.ModelsArray)
             {
                 _handcarModel.SetHeroToCell(heroUnitModel);
             }
