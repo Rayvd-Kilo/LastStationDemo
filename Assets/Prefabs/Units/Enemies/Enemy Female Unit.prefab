@@ -56,12 +56,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4031289616158128793, guid: b01a32cf385f2dc418831e368534b78e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031289616158128793, guid: b01a32cf385f2dc418831e368534b78e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 82c1330e6ce0ea54aa74af54d42bc177, type: 2}
     - target: {fileID: 4441463813661914233, guid: b01a32cf385f2dc418831e368534b78e, type: 3}
       propertyPath: initialFlipX
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4441463813661914233, guid: b01a32cf385f2dc418831e368534b78e, type: 3}
       propertyPath: skeletonDataAsset
@@ -111,9 +115,13 @@ PrefabInstance:
       propertyPath: m_AdaptiveModeThreshold
       value: 0.418
       objectReference: {fileID: 0}
+    - target: {fileID: 7972847495685277742, guid: b01a32cf385f2dc418831e368534b78e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8682730858777835748, guid: b01a32cf385f2dc418831e368534b78e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b01a32cf385f2dc418831e368534b78e, type: 3}

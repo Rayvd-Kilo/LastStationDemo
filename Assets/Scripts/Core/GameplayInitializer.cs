@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using GourmetsRealm.LastStationDemo.Controllers;
 using GourmetsRealm.LastStationDemo.Data;
 using GourmetsRealm.LastStationDemo.Interfaces;
@@ -18,6 +20,7 @@ namespace GourmetsRealm.LastStationDemo.Core
 
         private HandcarModel _handcarModel;
         private HandcarView _handcarView;
+        private EnemyUnitData[] _enemiesData;
 
         public GameplayInitializer(
             GameplayData gameplayData,
@@ -35,11 +38,20 @@ namespace GourmetsRealm.LastStationDemo.Core
 
             InitializeHeroes();
         }
-        
+
         public void Start()
         {
             _parentScope.CreateChild(builder =>
             {
+                builder.RegisterInstance(new ViewModelRepository<EnemyUnitModel, EnemyView>());
+
+                builder.RegisterInstance(_gameplayData.GeneratingData);
+
+                builder.Register<HordeModel>(Lifetime.Scoped)
+                    .WithParameter(_gameplayData.StagesData.First().EnemiesOnStageData);
+
+                builder.Register<GameplayIterationModel>(Lifetime.Scoped);
+
                 builder.RegisterInstance(_handcarModel).AsImplementedInterfaces().AsSelf();
 
                 builder.RegisterInstance(_handcarView).AsImplementedInterfaces().AsSelf();
@@ -64,13 +76,13 @@ namespace GourmetsRealm.LastStationDemo.Core
             _handcarView = Object.Instantiate(handcarData.HandcarView,
                 new Vector3(handcarData.CarInitialPosition.x, handcarData.CarInitialPosition.y), Quaternion.identity);
         }
-        
+
         private void InitializeHeroes()
         {
             _handcarModel.HeroPlaced += (vector2, model) =>
             {
-                var heroView = _heroesRepository.InitializeView((HeroUnitModel)model);
-                
+                var heroView = Object.Instantiate(_heroesRepository.GetViewByModel((HeroUnitModel)model));
+
                 heroView.transform.SetParent(_handcarView.CellsParent);
 
                 heroView.transform.localPosition = vector2;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GourmetsRealm.LastStationDemo.Data
 {
-    public abstract class BaseUnitData<T> : ScriptableObject where T : MonoBehaviour, IUnitView
+    public abstract class BaseUnitData<T> : ScriptableObject where T : IUnitView
     {
         [field:SerializeField] public T UnitView { get; private set; }
         

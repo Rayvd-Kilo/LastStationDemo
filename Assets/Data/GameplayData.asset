@@ -19,19 +19,22 @@ MonoBehaviour:
   - _enemiesOnStageData:
     - _enemiesUnitData:
       - {fileID: 11400000, guid: 03a98370c8c293c47bc83e4ebec6370b, type: 2}
-      _spawnTimeRange: {x: 0, y: 5}
+      _spawnTime: 0
       _enemiesCount: 5
     - _enemiesUnitData:
       - {fileID: 11400000, guid: e074380dec5b6cf489ad91dc52fb154d, type: 2}
-      _spawnTimeRange: {x: 5, y: 8}
+      _spawnTime: 0
       _enemiesCount: 6
     - _enemiesUnitData:
       - {fileID: 11400000, guid: e074380dec5b6cf489ad91dc52fb154d, type: 2}
       - {fileID: 11400000, guid: 03a98370c8c293c47bc83e4ebec6370b, type: 2}
-      _spawnTimeRange: {x: 8, y: 10}
+      _spawnTime: 0
       _enemiesCount: 8
     - _enemiesUnitData:
       - {fileID: 11400000, guid: e074380dec5b6cf489ad91dc52fb154d, type: 2}
       - {fileID: 11400000, guid: 03a98370c8c293c47bc83e4ebec6370b, type: 2}
-      _spawnTimeRange: {x: 10, y: 13}
+      _spawnTime: 0
       _enemiesCount: 15
+  <GeneratingData>k__BackingField:
+    _horizontalBounds: {x: 13, y: 17}
+    _verticalBounds: {x: -3, y: -5.5}

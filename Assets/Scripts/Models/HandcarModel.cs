@@ -7,15 +7,11 @@ using UnityEngine;
 
 namespace GourmetsRealm.LastStationDemo.Models
 {
-    public class HandcarModel : IDamageable, IResettable
+    public class HandcarModel : BaseDamageableModel, IResettable
     {
         public event Action<Vector2, IUnitModel> HeroPlaced;
 
         public event Action<Vector2, IUnitModel> HeroRemoved; 
-        
-        public event Action Destroyed;
-
-        public IAsyncReactiveProperty<int> Health { get; private set; }
 
         private int _defaultHealth;
 
@@ -38,16 +34,6 @@ namespace GourmetsRealm.LastStationDemo.Models
             if (_heroCells.All(x => x.IsPlaced)) return;
             
             _heroCells.First(x => !x.IsPlaced).PlaceModel(heroModel);
-        }
-
-        public void TakeDamage(int damageAmount)
-        {
-            Health.Value -= damageAmount;
-
-            if (Health.Value <= 0)
-            {
-                Destroyed?.Invoke();
-            }
         }
 
         public void ResetToDefault()

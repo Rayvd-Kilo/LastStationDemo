@@ -8,11 +8,11 @@ namespace GourmetsRealm.LastStationDemo.Views
     public class HealthBarHolderView : BaseAnimatedView
     {
         public HealthBarView HandCarHealthBar => _handCarHealthBar;
-        
-        public HealthBarView EnemiesHealthBar => _handCarHealthBar;
-        
+
+        public HealthBarView EnemiesHealthBar => _enemiesHealthBar;
+
         [SerializeField] private HealthBarView _handCarHealthBar;
-        
+
         [SerializeField] private HealthBarView _enemiesHealthBar;
 
         [SerializeField] private float _outOfScreenPoint;

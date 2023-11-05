@@ -4,7 +4,6 @@ using System.Linq;
 using GourmetsRealm.LastStationDemo.Data;
 using GourmetsRealm.LastStationDemo.Interfaces;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace GourmetsRealm.LastStationDemo.Models
 {
@@ -12,43 +11,49 @@ namespace GourmetsRealm.LastStationDemo.Models
         where TM : IUnitModel
         where TV : MonoBehaviour, IUnitView
     {
-        public TM[] ModelsArray => _prototypeModelDictionary.Keys.ToArray();
+        public event Action<TM> ModelAdded;
+        
+        public TM[] ModelsArray => _viewModelDictionary.Keys.ToArray();
+
+        public TV[] ViewsArray => _viewModelDictionary.Values.ToArray();
 
         private readonly Dictionary<TM, TV> _viewModelDictionary;
 
-        private readonly Dictionary<TM, TV> _prototypeModelDictionary;
+        public ViewModelRepository()
+        {
+            _viewModelDictionary = new Dictionary<TM, TV>();
+        }
 
         public ViewModelRepository(BaseUnitData<TV>[] unitsData)
         {
             _viewModelDictionary = new Dictionary<TM, TV>();
-            
-            _prototypeModelDictionary = new Dictionary<TM, TV>();
 
             foreach (var unitData in unitsData)
             {
-                _prototypeModelDictionary.Add((TM)unitData.CreateModel(), unitData.UnitView);
+                _viewModelDictionary.Add((TM)unitData.CreateModel(), unitData.UnitView);
             }
         }
 
-        public TV InitializeView(TM unitModel)
+        public void AddElement(TM model,TV view)
         {
-            var prototype = GetViewPrototype(unitModel);
-
-            var view = Object.Instantiate(prototype);
+            _viewModelDictionary.Add(model, view);
             
-            _viewModelDictionary.Add(unitModel,view);
-            
-            return view;
+            ModelAdded?.Invoke(model);
         }
 
-        public TV GetInitializedView(TM unitModel)
+        public void RemoveElement(TM model)
+        {
+            _viewModelDictionary.Remove(model);
+        }
+
+        public TM GetModelByView(TV prototype)
+        {
+            return _viewModelDictionary.First(x => x.Value.Equals(prototype)).Key;
+        }
+
+        public TV GetViewByModel(TM unitModel)
         {
             return GetView(unitModel, _viewModelDictionary);
-        }
-
-        private TV GetViewPrototype(TM unitModel)
-        {
-            return GetView(unitModel, _prototypeModelDictionary);
         }
 
         private TV GetView(TM unitModel, IReadOnlyDictionary<TM, TV> viewModelDictionary)

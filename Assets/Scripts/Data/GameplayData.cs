@@ -11,5 +11,7 @@ namespace GourmetsRealm.LastStationDemo.Data
         [field:SerializeField] public HandcarData HandcarData { get; private set; }
         
         [field:SerializeField] public StageData[] StagesData { get; private set; }
+        
+        [field:SerializeField] public EnemiesGeneratingData GeneratingData { get; private set; }
     }
 }

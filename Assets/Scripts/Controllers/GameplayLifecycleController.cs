@@ -1,7 +1,9 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using GourmetsRealm.LastStationDemo.Models;
 using GourmetsRealm.LastStationDemo.Presenters;
 using GourmetsRealm.LastStationDemo.Views;
+using VContainer;
 using VContainer.Unity;
 
 namespace GourmetsRealm.LastStationDemo.Controllers
@@ -11,15 +13,18 @@ namespace GourmetsRealm.LastStationDemo.Controllers
         private readonly HandcarView _handcarView;
         private readonly LifetimeScope _parentScope;
         private readonly HealthBarHolderView _healthBarHolderView;
+        private readonly GameplayIterationModel _gameplayIterationModel;
 
         public GameplayLifecycleController(
             HandcarView handcarView,
             LifetimeScope parentScope,
-            HealthBarHolderView healthBarHolderView)
+            HealthBarHolderView healthBarHolderView,
+            GameplayIterationModel gameplayIterationModel)
         {
             _handcarView = handcarView;
             _parentScope = parentScope;
             _healthBarHolderView = healthBarHolderView;
+            _gameplayIterationModel = gameplayIterationModel;
         }
 
         public async UniTask StartAsync(CancellationToken cancellation)
@@ -43,6 +48,8 @@ namespace GourmetsRealm.LastStationDemo.Controllers
             });
             
             await _healthBarHolderView.DoStartAnimationAsync(token);
+
+            await UniTask.WaitUntil(() => _gameplayIterationModel.IsEndgame, cancellationToken: token);
             
             iterationScope.Dispose();
             
